@@ -3,6 +3,12 @@
     "references": [
         {
             "path": "./packages/router"
+        },
+        {
+            "path": "./packages/http"
+        },
+        {
+            "path": "./packages/signals"
         }
     ]
 }

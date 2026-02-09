@@ -1,0 +1,28 @@
+{
+    "name": "@plain-kit/http",
+    "version": "1.0.0",
+    "description": "A functional, composable HTTP client library",
+    "main": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "test": "node --experimental-strip-types --test test/*.test.ts",
+        "lint": "biome lint .",
+        "format": "biome format --write ."
+    },
+    "keywords": [
+        "http",
+        "fetch",
+        "functional",
+        "composition"
+    ],
+    "author": "",
+    "license": "ISC",
+    "engines": {
+        "node": ">=24"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@types/node": "^25.2.2",
+        "typescript": "^5.9.3"
+    }
+}
