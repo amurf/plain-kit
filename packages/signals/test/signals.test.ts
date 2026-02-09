@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { signal, effect, computed } from '../src/index.js';
+import { signal, effect, computed } from '../src/index.ts';
 
 test('signal should hold a value', () => {
 	const s = signal(1);
