@@ -8,7 +8,10 @@
         "dev:ssr": "node --strip-types index.ts"
     },
     "dependencies": {
-        "@plain-kit/router": "*"
+        "@plain-kit/router": "*",
+        "@plain-kit/signals": "*",
+        "@plain-kit/query": "*",
+        "@plain-kit/http": "*"
     },
     "devDependencies": {
         "@types/node": "^22.0.0",
