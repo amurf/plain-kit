@@ -1,0 +1,113 @@
+# Router Library for Vanilla JS
+
+A lightweight, composition-first frontend router using the native `URLPattern` API.
+Designed for modern JavaScript environments with zero dependencies.
+
+## Key Features
+
+- **Composition-First**: Middleware-based architecture (like Koa/Express) for routes.
+- **Native URLPattern**: Leverages the platform's URL matching capabilities.
+- **Type-Safe**: Written in TypeScript with full type definitions.
+- **Minimal**: < 2KB, no runtime dependencies.
+
+## Installation
+
+```bash
+npm install @ash/router
+# or for vanilla usage, import directly from source/CDN
+```
+
+## Quick Start
+
+```typescript
+import { createRouter } from "./src";
+
+const router = createRouter([
+  {
+    path: "/",
+    handler: () => "<h2>Home</h2>",
+  },
+  {
+    path: "/users/:id",
+    handler: ({ params }) => `<h2>User ${params.id}</h2>`,
+  },
+]);
+
+// Start listening to history changes
+router.listen();
+
+// Handle initial load
+router.resolve(window.location.href).then((content) => {
+  if (content) document.body.innerHTML = content;
+});
+
+// Navigate programmatically
+document.body.addEventListener("click", (e) => {
+  if (e.target.matches("a")) {
+    e.preventDefault();
+    router.navigate(e.target.getAttribute("href"));
+  }
+});
+```
+
+## Middleware & Composition
+
+You can use `compose` to wrap handlers with middleware (logging, auth, etc.).
+
+```typescript
+import { createRouter, compose } from "./src";
+
+const logger = async (ctx, next) => {
+  console.log(`Navigating to ${ctx.url.pathname}`);
+  const result = await next();
+  console.log("Done");
+  return result;
+};
+
+const router = createRouter([
+  {
+    path: "/admin",
+    handler: compose(logger, async (ctx) => {
+      // check auth...
+      return "Admin Panel";
+    }),
+  },
+]);
+```
+
+## API Reference
+
+### `createRouter(routes: Route[])`
+
+Creates a router instance.
+
+- `routes`: Array of `{ path: string, handler: Function }` objects.
+- Returns: `Router` object.
+
+### `Router` Interface
+
+```typescript
+interface Router<T = any> {
+  // Resolve a URL to a result
+  resolve: (url: string | URL) => Promise<T | undefined>;
+  
+  // Navigate to a path (pushes state and resolves)
+  navigate: (path: string) => void;
+  
+  // Listen for browser popstate events
+  listen: () => () => void; // Returns unsubscribe function
+}
+```
+
+### `Context` Object
+
+Passed to every handler.
+
+```typescript
+interface RouterContext {
+  url: URL;
+  params: Record<string, string | undefined>; // e.g. { id: "123" }
+  query: URLSearchParams;
+  state?: unknown;
+}
+```
