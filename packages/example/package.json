@@ -1,0 +1,21 @@
+{
+    "name": "@plain-kit/example",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "dev:ssr": "node --strip-types index.ts"
+    },
+    "dependencies": {
+        "@plain-kit/router": "*"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "typescript": "^5.0.0",
+        "vite": "^6.0.0"
+    },
+    "engines": {
+        "node": ">=24"
+    }
+}
