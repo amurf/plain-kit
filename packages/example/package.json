@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "dev:ssr": "node --strip-types index.ts"
+        "dev:ssr": "node --strip-types index.ts",
+	"test": "echo pass"
     },
     "dependencies": {
         "@plain-kit/router": "*",
